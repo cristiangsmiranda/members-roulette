@@ -24,7 +24,7 @@ app.use('/api/users', userRoutes);
 
 
 app.get('/', (req, res) => {
-  res.send('API funcionando...');
+  res.send('API working...');
 });
 
 app.listen(PORT, () => {
