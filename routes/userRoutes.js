@@ -46,16 +46,25 @@ router.get('/', getUsers);
  *             properties:
  *               username:
  *                 type: string
+ *                 description: Deve ter entre 3 e 30 caracteres
  *               email:
  *                 type: string
+ *                 format: email
+ *                 description: Deve ser um email válido
  *               password:
  *                 type: string
+ *                 description: Deve ter pelo menos 6 caracteres
  *               role:
  *                 type: string
+ *                 enum: [user, admin]
+ *                 description: Opcional. Pode ser "user" ou "admin"
  *     responses:
  *       201:
  *         description: Usuário criado com sucesso
+ *       400:
+ *         description: Erro de validação dos dados
  */
+
 router.post('/', createUser);
 
 /**
@@ -67,6 +76,7 @@ router.post('/', createUser);
  *     parameters:
  *       - name: id
  *         in: path
+ *         description: ID do usuário a ser atualizado
  *         required: true
  *         schema:
  *           type: string
@@ -79,14 +89,24 @@ router.post('/', createUser);
  *             properties:
  *               username:
  *                 type: string
+ *                 description: Deve ter entre 3 e 30 caracteres
  *               email:
  *                 type: string
+ *                 format: email
+ *                 description: Deve ser um email válido
  *               role:
  *                 type: string
+ *                 enum: [user, admin]
+ *                 description: Pode ser "user" ou "admin"
  *     responses:
  *       200:
  *         description: Usuário atualizado com sucesso
+ *       400:
+ *         description: Erro de validação dos dados
+ *       404:
+ *         description: Usuário não encontrado
  */
+
 router.put('/:id', updateUser);
 
 /**
