@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const { getUsers, createUser, updateUser, deleteUser } = require('../controllers/userController');
+const { isAuthenticated } = require('../middleware/authMiddleware'); // ✅ Importado
+
 
 /**
  * @swagger
@@ -25,7 +27,7 @@ const { getUsers, createUser, updateUser, deleteUser } = require('../controllers
  *               items:
  *                 type: object
  */
-router.get('/', getUsers);
+router.get('/', isAuthenticated, getUsers); // ✅ Protegido
 
 /**
  * @swagger
@@ -65,7 +67,7 @@ router.get('/', getUsers);
  *         description: Erro de validação dos dados
  */
 
-router.post('/', createUser);
+router.post('/', isAuthenticated, createUser); // ✅ Protegido
 
 /**
  * @swagger
@@ -107,7 +109,7 @@ router.post('/', createUser);
  *         description: Usuário não encontrado
  */
 
-router.put('/:id', updateUser);
+router.put('/:id', isAuthenticated, updateUser); // ✅ Protegido
 
 /**
  * @swagger
@@ -125,6 +127,6 @@ router.put('/:id', updateUser);
  *       200:
  *         description: Usuário removido com sucesso
  */
-router.delete('/:id', deleteUser);
+router.delete('/:id', isAuthenticated, deleteUser); // ✅ Protegido
 
 module.exports = router;

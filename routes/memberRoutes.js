@@ -119,13 +119,21 @@
  */
 
 
+
 const express = require('express');
 const router = express.Router();
-const { getMembers, createMember, updateMember, deleteMember } = require('../controllers/memberController');
+const {
+  getMembers,
+  createMember,
+  updateMember,
+  deleteMember
+} = require('../controllers/memberController');
+const { isAuthenticated } = require('../middleware/authMiddleware'); // ✅ Importado
 
-router.get('/', getMembers);
-router.post('/', createMember);
-router.put('/:id', updateMember);
-router.delete('/:id', deleteMember);
+// ✅ Rotas protegidas
+router.get('/', isAuthenticated, getMembers);
+router.post('/', isAuthenticated, createMember);
+router.put('/:id', isAuthenticated, updateMember);
+router.delete('/:id', isAuthenticated, deleteMember);
 
 module.exports = router;
